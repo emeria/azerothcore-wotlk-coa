@@ -38,6 +38,13 @@
       "sha": "c97fa2c6fc52483b58b4152c0941ee2a835d8cff",
       "patch": "patches/dungeon-clear-coa-validation.patch",
       "patchSha256": "0cdf4a5cfc7d9c489c594a30994bc3c7ef594cc9237bc4fcd4ac770b0fae10b8"
+    },
+    {
+      "folder": "mod-pbc",
+      "repository": "deseven/mod-pbc",
+      "sha": "b37a442a4c971480d4a96099f58323e400ba4ac8",
+      "patch": "patches/mod-pbc-coa-migration.patch",
+      "patchSha256": "8287cb8846080d2c48fbb4f3d8273af4089e13f27264ff76b94e487de15728b8"
     }
   ]
 }

@@ -3,7 +3,7 @@
 Build files for the `home` branch: the server that runs at home, built from this fork.
 
 - `external-modules.json`: the modules that live in other repos, each pinned to a commit. The pins match what the live server runs (CoA Server Manager update 0.261125.124).
-- `patches/`: CoA patches for two of those modules, copied unchanged from Corfirean/coa-server-build. `external-modules.json` holds their SHA-256.
+- `patches/`: CoA patches for three of those modules (SQUID, dungeon-clear, mod-pbc), copied unchanged from Corfirean/coa-server-build. `external-modules.json` holds their SHA-256. The repo's `.gitignore` ignores `*.patch`, so add new ones with `git add -f`.
 - `Prepare-ExternalModules.ps1`: fetches each pinned repo into `C:\wow-server\coa\src\<repo>-<sha8>`, applies its patch, and joins it into `modules\` with a junction.
 - `Configure-HomeBuild.ps1`: configures a Release build with the flags from `.github/workflows/coa-bots-build.yml`.
 
