@@ -1,0 +1,43 @@
+{
+  "schema": 1,
+  "source": "Pins match the CoA Server Manager update 0.261125.124 (manifest compatibility.moduleCommits). Patches are copied from Corfirean/coa-server-build 82bd4db6a153c9625228ce49f4080ebd7bb66fb7.",
+  "modules": [
+    {
+      "folder": "mod-coa-playerbots",
+      "repository": "Corfirean/mod-coa-playerbots",
+      "sha": "57300a1cea54dea8cdd8693d95fb937dfd53bb78",
+      "subdir": "module"
+    },
+    {
+      "folder": "mod-coa-content-scaling",
+      "repository": "Corfirean/mod-coa-content-scaling",
+      "sha": "3c2febf636bd09087bb278e381b975271a70fdf6"
+    },
+    {
+      "folder": "mod-coa-tbc-content",
+      "repository": "Corfirean/mod-coa-content-scaling",
+      "sha": "3c2febf636bd09087bb278e381b975271a70fdf6",
+      "subdir": "content-packs/mod-coa-tbc-content"
+    },
+    {
+      "folder": "mod-coa-wotlk-content",
+      "repository": "Corfirean/mod-coa-content-scaling",
+      "sha": "3c2febf636bd09087bb278e381b975271a70fdf6",
+      "subdir": "content-packs/mod-coa-wotlk-content"
+    },
+    {
+      "folder": "mod-playerbots",
+      "repository": "Zyth45/mod-playerbots",
+      "sha": "d3bb1f81509addd923bae2e0164b9ca94d485e97",
+      "patch": "patches/squid-coa-validation.patch",
+      "patchSha256": "72c6bf5b10dbf550ee219f14dbf0cdd5a39bfae0d4b14cc229d01a440752d7ea"
+    },
+    {
+      "folder": "mod-dungeon-clear",
+      "repository": "Zyth45/mod-dungeon-clear",
+      "sha": "c97fa2c6fc52483b58b4152c0941ee2a835d8cff",
+      "patch": "patches/dungeon-clear-coa-validation.patch",
+      "patchSha256": "0cdf4a5cfc7d9c489c594a30994bc3c7ef594cc9237bc4fcd4ac770b0fae10b8"
+    }
+  ]
+}

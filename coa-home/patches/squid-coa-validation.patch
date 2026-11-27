@@ -1,0 +1,62 @@
+diff --git a/src/Ai/Coa/Economy/AuctionHouse/CoaAuctionHouseBotHooks.cpp b/src/Ai/Coa/Economy/AuctionHouse/CoaAuctionHouseBotHooks.cpp
+index f13bcc1038733eb989faa05a98620001f2900c97..de707a6cdce0619a216996de6aed0a8b9fcdd378 100644
+--- a/src/Ai/Coa/Economy/AuctionHouse/CoaAuctionHouseBotHooks.cpp
++++ b/src/Ai/Coa/Economy/AuctionHouse/CoaAuctionHouseBotHooks.cpp
+@@ -259,11 +259,9 @@ public:
+ 
+ void AddSC_coa_economy_ahbot()
+ {
+-    if (!CoaEconomy::Conf::Get<bool>(KEY_MODULE_ENABLE, true))
+-        return;
+-
+-    new CoaAhBotWorldHooks();
+-    new CoaAhBotAuctionHooks();
+-    new CoaAhBotMailHooks();
+-    new CoaAhBotCommands();
++    // CoA builds ship mod-ah-bot-plus in the core. It owns the auction house bot and the .ahbot commands; a second
++    // set of .ahbot sub-commands would stop the world server at start-up, so these hooks are never registered.
++    static_cast<void>(KEY_MODULE_ENABLE);
++    static_cast<void>(sizeof(CoaAhBotWorldHooks) + sizeof(CoaAhBotAuctionHooks) + sizeof(CoaAhBotMailHooks) + sizeof(CoaAhBotCommands));
++    LOG_INFO("server.loading", "SquidBots auction house bot: not loaded, the core's auction house bot is used");
+ }
+diff --git a/src/Mgr/Move/FleeManager.cpp b/src/Mgr/Move/FleeManager.cpp
+index bc058c805fff685963a2f8ee3505b6bb48505fc4..5f82bde9dbdf33b1d752cb10212ed92019f1f080 100644
+--- a/src/Mgr/Move/FleeManager.cpp
++++ b/src/Mgr/Move/FleeManager.cpp
+@@ -54,6 +54,9 @@ bool intersectsOri(float angle, std::vector<float>& angles, float angleIncrement
+ 
+ void FleeManager::calculatePossibleDestinations(std::vector<FleePoint*>& points)
+ {
++    if (!bot || !startPosition)
++        return;
++
+     PlayerbotAI* botAI = GET_PLAYERBOT_AI(bot);
+     if (!botAI)
+     {
+diff --git a/src/Mgr/Travel/TravelMgr.cpp b/src/Mgr/Travel/TravelMgr.cpp
+index c853dc9513ba0490fc694cd9eb325f342f1c66ef..a49e4ae54c0af30d184ccc18c25feb3c1d6dd1f2 100644
+--- a/src/Mgr/Travel/TravelMgr.cpp
++++ b/src/Mgr/Travel/TravelMgr.cpp
+@@ -228,7 +228,8 @@ void WorldPosition::setO(float o) { m_orientation = o; }
+ 
+ WorldPosition::operator bool() const
+ {
+-    return GetMapId() != 0 || GetPositionX() != 0 || GetPositionY() != 0 || GetPositionZ() != 0;
++    return GetMapId() != MAPID_INVALID &&
++           (GetMapId() != 0 || GetPositionX() != 0 || GetPositionY() != 0 || GetPositionZ() != 0);
+ }
+ 
+ bool operator==(WorldPosition const& p1, WorldPosition const& p2)
+@@ -412,7 +413,11 @@ uint32 WorldPosition::getInstanceId()
+ 
+ Map* WorldPosition::getMap()
+ {
+-    return sMapMgr->FindMap(GetMapId(), getMapEntry()->Instanceable() ? getInstanceId() : 0);
++    MapEntry const* entry = getMapEntry();
++    if (!entry)
++        return nullptr;
++
++    return sMapMgr->FindMap(GetMapId(), entry->Instanceable() ? getInstanceId() : 0);
+ }
+ 
+ float WorldPosition::getHeight()  // remove const - whipowill
