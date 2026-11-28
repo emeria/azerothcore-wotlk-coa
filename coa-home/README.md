@@ -6,14 +6,17 @@ Build files for the `home` branch: the server that runs at home, built from this
 - `patches/`: CoA patches for three of those modules (SQUID, dungeon-clear, mod-pbc), copied unchanged from Corfirean/coa-server-build. `external-modules.json` holds their SHA-256. The repo's `.gitignore` ignores `*.patch`, so add new ones with `git add -f`.
 - `Prepare-ExternalModules.ps1`: fetches each pinned repo into `C:\wow-server\coa\src\<repo>-<sha8>`, applies its patch, and joins it into `modules\` with a junction.
 - `Configure-HomeBuild.ps1`: configures a Release build with the flags from `.github/workflows/coa-bots-build.yml`.
+- `Build-Home.ps1`: builds it. While worldserver is running it builds at below-normal priority with half the cores (`-Jobs` sets the cap), so the live world keeps its tick rate; with the server stopped it builds at full speed. `-FullSpeed` skips the cap, `-DryRun` prints the command.
 
 ## Build
 
 ```powershell
 pwsh -NoProfile -File coa-home\Prepare-ExternalModules.ps1
 pwsh -NoProfile -File coa-home\Configure-HomeBuild.ps1 -Build C:\wow-server\coa\build
-cmake --build C:\wow-server\coa\build --config Release
+pwsh -NoProfile -File coa-home\Build-Home.ps1 -Build C:\wow-server\coa\build
 ```
+
+Don't run `cmake --build` directly on the server PC while the server is up. It starts a compiler on every core and the world lags (coa-home-server#46).
 
 Output: `C:\wow-server\coa\build\bin\Release\worldserver.exe` and `authserver.exe`.
 
