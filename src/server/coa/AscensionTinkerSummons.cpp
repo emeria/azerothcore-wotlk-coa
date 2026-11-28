@@ -333,7 +333,7 @@ struct npc_ascension_tinker_device : ScriptedAI
             Cast(me, me, 750001);
             Cast(player, player, 807293);
             if (!player->HasSpell(500470))
-                player->learnSpell(500470, true);
+                player->learnSpellWithoutAnnouncement(500470);
             player->SetTemporarySpellReplacement(500239, 500470);
         }
         focus = State(player).focus;
