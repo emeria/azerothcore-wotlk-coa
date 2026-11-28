@@ -1,0 +1,8 @@
+[worldserver]
+
+# Lets a player catch a fish with one key: the CoaFish addon message or the .fish command
+# uses the player's own fishing bobber, the same as a click on it.
+OneKeyFishing.Enable = 1
+
+# Catches the fish as soon as it bites, with no key press. 0 = off.
+OneKeyFishing.AutoHook = 0
