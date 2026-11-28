@@ -27,10 +27,8 @@
     },
     {
       "folder": "mod-playerbots",
-      "repository": "Zyth45/mod-playerbots",
-      "sha": "d3bb1f81509addd923bae2e0164b9ca94d485e97",
-      "patch": "patches/squid-coa-validation.patch",
-      "patchSha256": "72c6bf5b10dbf550ee219f14dbf0cdd5a39bfae0d4b14cc229d01a440752d7ea"
+      "repository": "emeria/mod-playerbots",
+      "sha": "93ed75e6bdb8d83f4f63bb931bf14f43ade4b6d0"
     },
     {
       "folder": "mod-dungeon-clear",
